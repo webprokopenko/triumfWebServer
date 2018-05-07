@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const http = require('http');
+
 const server = http.createServer(app);
 //set global AppDirectory
 global.appRoot = path.resolve(__dirname);
@@ -16,6 +17,7 @@ if(process.argv.indexOf('-dev')) {
     const cors = require('cors');
     app.use(cors());
 }
+
 // body parser set
 app.use(bodyParser.json({ type: 'text/plain' }));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -37,7 +39,7 @@ app.use(function(err, req, res, next) {
   res.send({error: err.message});
 });
 
-server.listen(process.env.PORT || 2345, function() {
+server.listen(process.env.PORT || 2550, function() {
   console.log('Сервер запущен на порте: ' + server.address().port);
   crontab.run();
 });
