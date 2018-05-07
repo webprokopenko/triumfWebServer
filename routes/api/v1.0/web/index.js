@@ -11,3 +11,7 @@ app.get('/auth', (req, res, next) => {
 app.get('/reg', (req, res, next) => {
     
 });
+app.get('/getWallets', (req, res, next) => {
+    //req with Oauth will return empty object
+});
+
