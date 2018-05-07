@@ -13,32 +13,31 @@ const clientModel = require('./mongo/model/client'),
  */
 
 const loadExampleData = function() {
-	let client = new clientModel({
-		clientId: 'application',
-		clientSecret: 'secret'
-	});
+	try {
+        let client = new clientModel({
+            clientId: 'application',
+            clientSecret: 'secret'
+        });
 
-	let user = new userModel({
-		id: '123',
-		username: 'pedroetb',
-		password: 'password'
-	});
+        let user = new userModel({
+            id: '123',
+            username: 'pedroetb',
+            password: 'password'
+        });
+        client.save().then(cl => {console.dir('in');
+            console.log('Created client', cl);
+        }).catch(err => {console.dir('in');
+            console.dir(err);
+        });
 
-	client.save(function(err, client) {
+        user.save(function(err, user) {
 
-		if (err) {
-			return console.error(err);
-		}
-		console.log('Created client', client);
-	});
-
-	user.save(function(err, user) {
-
-		if (err) {
-			return console.error(err);
-		}
-		console.log('Created user', user);
-	});
+            if (err) {
+                return console.error(err);
+            }
+            console.log('Created user', user);
+        });
+	} catch (error) {console.dir(error)}
 };
 
 /**
@@ -76,7 +75,7 @@ var dump = function() {
  * Get access token.
  */
 
-var getAccessToken = function(bearerToken, callback) {
+const getAccessToken = function(bearerToken, callback) {
 
 	tokenModel.findOne({
 		accessToken: bearerToken
@@ -87,7 +86,7 @@ var getAccessToken = function(bearerToken, callback) {
  * Get client.
  */
 
-var getClient = function(clientId, clientSecret, callback) {
+const getClient = function(clientId, clientSecret, callback) {
 
 	clientModel.findOne({
 		clientId: clientId,
@@ -99,7 +98,7 @@ var getClient = function(clientId, clientSecret, callback) {
  * Grant type allowed.
  */
 
-var grantTypeAllowed = function(clientId, grantType, callback) {
+const grantTypeAllowed = function(clientId, grantType, callback) {
 
 	callback(false, grantType === "password");
 };
@@ -108,9 +107,9 @@ var grantTypeAllowed = function(clientId, grantType, callback) {
  * Save token.
  */
 
-var saveAccessToken = function(accessToken, clientId, expires, user, callback) {
+const saveAccessToken = function(accessToken, clientId, expires, user, callback) {
 
-	var token = new tokenModel({
+	const token = new tokenModel({
 		accessToken: accessToken,
 		expires: expires,
 		clientId: clientId,
@@ -124,7 +123,7 @@ var saveAccessToken = function(accessToken, clientId, expires, user, callback) {
  * Get user.
  */
 
-var getUser = function(username, password, callback) {
+const getUser = function(username, password, callback) {
 
 	userModel.findOne({
 		username: username,
@@ -135,6 +134,36 @@ var getUser = function(username, password, callback) {
 /**
  * Export model definition object.
  */
+const saveAuthorizationCode = function (code, client, user) {
+    // imaginary DB queries
+    let authCode = {
+        authorization_code: code.authorizationCode,
+        expires_at: code.expiresAt,
+        redirect_uri: code.redirectUri,
+        scope: code.scope,
+        client_id: client.id,
+        user_id: user.id
+    };
+    return authCode;/*db.saveAuthorizationCode(authCode)
+        .then(function(authorizationCode) {
+            return {
+                authorizationCode: authorizationCode.authorization_code,
+                expiresAt: authorizationCode.expires_at,
+                redirectUri: authorizationCode.redirect_uri,
+                scope: authorizationCode.scope,
+                client: {id: authorizationCode.client_id},
+                user: {id: authorizationCode.user_id}
+            };
+        });*/
+};
+var getUserFromClient = function(clientId, clientSecret, callback) {
+
+    callback(false, {
+        id: '123',
+        username: 'pedroetb',
+        password: 'password'
+    });
+};
 
 module.exports = {
 	getAccessToken: getAccessToken,
@@ -142,5 +171,7 @@ module.exports = {
 	grantTypeAllowed: grantTypeAllowed,
 	saveAccessToken: saveAccessToken,
     getUser: getUser,
-    loadExampleData: loadExampleData
+    loadExampleData: loadExampleData,
+    saveAuthorizationCode: saveAuthorizationCode,
+    getUserFromClient: getUserFromClient
 };

@@ -1,7 +1,6 @@
-var mongoose = require('mongoose'),
-	modelName = 'user',
-	schemaDefinition = require('../schema/' + modelName),
-	schemaInstance = mongoose.Schema(schemaDefinition),
-	modelInstance = mongoose.model(modelName, schemaInstance);
-
+const mongoose = require(appRoot + '/lib/db'),
+    modelName = 'user',
+    schemaDefinition = require(appRoot + '/mongo/schema/' + modelName),
+    schemaInstance = new mongoose.Schema(schemaDefinition);
+const modelInstance = mongoose.model(modelName, schemaInstance);
 module.exports = modelInstance;

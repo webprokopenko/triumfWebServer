@@ -1,28 +1,34 @@
 const express = require('express');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const app = module.exports = express();
 const oauthController = require(`${appRoot}/controllers/oauthController`);
-const oauthServer = require('node-oauth2-server');
+const OauthServer = require('oauth2-server');
+const Request = require('oauth2-server').Request;
+const Response = require('oauth2-server').Response;
 
 // Oauth2
-app.oauth = oauthServer({
-    model: require('../../../../model.js'),
-    grants: ['password'],
-    debug: true,
+app.oauth = new OauthServer({
+    model: require(appRoot + '/model.js'),
+    grants: ['password', 'client_credentials'],
+    debug: true
   });
 
 
-app.all('/oauth/token', app.oauth.grant());
-
-app.get('/reg', (req, res, next) => {
-    
+//app.all('/oauth/token', app.oauth.grant());
+app.post('/oauth/token', (req, res) => {
+    const request = new Request(req);
+    const response = new Response(res);
+    app.oauth.token(request, response);
 });
-app.get('/', app.oauth.authorise(), function (req, res) {
+app.post('/reg', (req, res, next) => {
+    req.send('Not secret area');
+});
+/*app.get('/', app.oauth.authorize(), function (req, res) {
 	res.send('Congratulations, you are in a secret area!');
-});
+});*/
 
 app.get('/deffault', (req, res, next) => {
     res.send('deffault');
-})
+});
 
-app.use(app.oauth.errorHandler());
+//app.use(app.oauth.errorHandler());

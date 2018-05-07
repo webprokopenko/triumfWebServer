@@ -1,5 +1,5 @@
 module.exports = {
-	id: String,
+	id: {type: String, index: true},
 	username: String,
 	password: String
 };

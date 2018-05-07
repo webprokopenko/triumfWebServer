@@ -16,6 +16,7 @@
     "body-parser": "^1.18.2",
     "ethereumjs-units": "^0.2.0",
     "express": "^4.16.2",
+    "express-oauth-server": "^2.0.0",
     "gdax": "^0.5.1",
     "intel": "^1.2.0",
     "json-rpc2": "^1.0.2",
@@ -26,6 +27,7 @@
     "node-oauth2-server": "^2.4.0",
     "nodemon": "^1.17.4",
     "npm": "^5.8.0",
+    "oauth2-server": "^3.0.0",
     "web3": "^0.20.4",
     "zcash-bitcore-lib": "^0.13.20-rc3"
   },

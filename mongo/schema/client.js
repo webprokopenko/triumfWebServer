@@ -1,4 +1,4 @@
 module.exports = {
-	clientId: String,
+	clientId: {type: String, index: true},
 	clientSecret: String
 };

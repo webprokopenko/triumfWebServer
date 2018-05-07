@@ -41,5 +41,5 @@ app.use(function(err, req, res, next) {
 
 server.listen(process.env.PORT || 2550, function() {
   console.log('Сервер запущен на порте: ' + server.address().port);
-  crontab.run();
+  //crontab.run();
 });
