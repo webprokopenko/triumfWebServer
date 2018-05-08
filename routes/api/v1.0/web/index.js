@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = module.exports = express();
 const User = require(`${appRoot}/controllers/userController`);
 const Auth = require(appRoot + '/lib/auth');
@@ -27,5 +26,3 @@ app.get('/', Auth.authen, function (req, res) {
 app.get('/deffault', (req, res, next) => {
     res.send('deffault');
 });
-
-//app.use(app.oauth.errorHandler());

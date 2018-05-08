@@ -18,11 +18,6 @@ describe('Testing BTC',()=> {
             console.dir(err);
             console.dir(cli);
         });
-            /*.then(cli => {console.dir('in...');
-                console.dir(cli);
-            }).catch(error => {console.dir('in...');
-                console.dir(error)
-        });*/
         done();
     });
     it('test token model', (done) => {
