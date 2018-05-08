@@ -18,6 +18,9 @@ if(process.argv.indexOf('-dev')) {
     app.use(cors());
 }
 
+const argv = require('minimist')(process.argv.slice(2));
+global.appKey = argv.key || '12345678';
+
 // body parser set
 app.use(bodyParser.json({ type: 'text/plain' }));
 app.use(bodyParser.urlencoded({extended: false}));
