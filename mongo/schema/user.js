@@ -1,6 +1,6 @@
 module.exports = {
-	id: {type: String, index: true},
+	id: {type: String, index: true, unique: true},
 	username: String,
-	email: String,
+	email: {type: String, index: true, unique: true},
 	password: String
 };
