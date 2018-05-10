@@ -1,7 +1,7 @@
 const express = require('express');
 const app = module.exports = express();
 const User = require(`${appRoot}/controllers/userController`);
-const Auth = require(appRoot + '/lib/auth');
+const Auth = require(`${appRoot}/lib/auth`);
 
 app.post('/create', function(req, res) {
     try {

@@ -3,43 +3,8 @@ const mongoose = require('mongoose');
 /**
  * Configuration.
  */
-
-const clientModel = require('./mongo/model/client'),
-	tokenModel = require('./mongo/model/token'),
+	const tokenModel = require('./mongo/model/token'),
 	userModel = require('./mongo/model/user');
-
-/**
- * Add example client and user to the database (for debug).
- */
-
-const loadExampleData = function() {
-	try {
-        let client = new clientModel({
-            clientId: 'application',
-            clientSecret: 'secret'
-        });
-
-        let user = new userModel({
-            id: '123',
-            username: 'pedroetb',
-            password: 'password'
-        });
-        client.save().then(cl => {console.dir('in');
-            console.log('Created client', cl);
-        }).catch(err => {console.dir('in');
-            console.dir(err);
-        });
-
-        user.save(function(err, user) {
-
-            if (err) {
-                return console.error(err);
-            }
-            console.log('Created user', user);
-        });
-	} catch (error) {console.dir(error)}
-};
-
 /**
  * Dump the database content (for debug).
  */

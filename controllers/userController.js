@@ -2,17 +2,16 @@ const intel = require('intel');
 const UserError = intel.getLogger('UserError');
 UserError.setLevel(UserError.ERROR).addHandler(new intel.handlers.File(`${appRoot}/logs/user/error.log`));
 
-const userModel = require(appRoot + '/mongo/model/user');
+const userModel = require(`${appRoot}/mongo/model/user`);
 
 function createUser(data) {
     return new Promise((resolve, reject) => {
         try {
             userModel.create({
-                name: data.name,
                 email: data.email,
                 password: data.password
             }, (err, user) => {
-                if(err) {
+                if(err) { 
                     UserError.error('createUser error: ' + err);
                     return reject(err.code === 11000 ? 'User exists.': '');
                 }
