@@ -47,13 +47,12 @@ const authen = (req, res, next) => {
                         next();
                     })
                     .catch(err => {
-                        AUTHLog.error('userModel error: ' + err);
+                        AuthError.error('authen error: ' + err);
                         res.statuse(401).send('');
                     })
             })
             .catch(err => {
-                AUTHLog.error('_verifyJWT error: ' + err);
-                res.status(401).send('');
+                res.status(401).send('_verifyJWT error: ' + err);
             });
     });
 };
